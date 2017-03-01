@@ -1,0 +1,17 @@
+#!/bin/sh
+mkdir -p build
+cd build
+cmake ..
+echo "\n"
+make
+echo "\n"
+make test
+echo "\n"
+while true; do
+    read -p "Do you wish to copy pml headers under /usr/local/include (y/n)? " yn
+    case $yn in
+        [Yy]* ) sudo make install; break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes(y) or no(n).";;
+    esac
+done

@@ -1,0 +1,11 @@
+#!/bin/sh
+rm -rf build
+rm -rf bin
+while true; do
+    read -p "Do you wish to remove pml headers from /usr/local/include (y/n)? " yn
+    case $yn in
+        [Yy]* ) sudo rm -rf /usr/local/include; break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes(y) or no(n).";;
+    esac
+done
