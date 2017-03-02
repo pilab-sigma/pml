@@ -1,6 +1,5 @@
 import numpy as np
 
-
 def loadTxt(filename):
     X = np.loadtxt(filename)
     dim = int(X[0])
@@ -11,12 +10,9 @@ def loadTxt(filename):
     return X
 
 
-def saveTxt(filename, X, format = '%.6f'):
+def saveTxt(filename, x, fmt='%.6f'):
     with open(filename, 'wb') as f:
-        header = np.asarray(len(X.shape))
-        header = np.append(header, X.shape)
-        np.savetxt(f, header, fmt='%d')
+        np.savetxt(f, np.append(x.ndim, x.shape), fmt='%d')
     with open(filename, 'ab') as f:
-        temp = X.reshape(np.product(X.shape), order='F')
-        np.savetxt(f, temp, fmt = format)
-
+        temp = x.reshape(np.product(x.shape), order='F')
+        np.savetxt(f, temp, fmt=fmt)
