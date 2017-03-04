@@ -1,0 +1,72 @@
+# jemdoc: menu{MENU}{matrix.html}
+= Matrix Class
+
+Matrices are stored in column major order to make column operations more efficient.
+We view our N-dimensional data points as columns of length N. If we have K of
+such points, then we construct a matrix of size NxK.
+
+~~~
+{Construction}{}
+Matrix M();                     // Empty matrix
+
+Matrix M(2, 3);                 // Matrix of size 2x3 with garbage values
+
+Matrix M(2, 3, 5);              // Matrix of size 2x3, all initialized to 5.
+
+Matrix M(2, 3, {1,2,3,4,5,6});  // Generates the Matrix:    1 3 5
+                                //                          2 4 6
+
+Matrix M2(M);                   // Copy constructor.
+Matrix M2 = M;
+~~~
+
+~~~
+{Special Matrices}{}
+Matrix M = Matrix::Identity(K)       // K x K Identity matrix
+Matrix M = Matrix::Ones(K, L)        // K x L Ones matrix
+Matrix M = Matrix::Zeros(K, L)       // K x L Zeros matrix
+Matrix M = Uniform::rand(K, L)       // See Random for details.
+~~~
+
+~~~
+{Value Access}{}
+double d = M(i, j);     // Get i^th element of the j^th column
+M(i, j) = d;            // Set i^th element of the j^th column
+~~~
+
+~~~
+{Algebra}{}
+M1 = 5;                 // Sets all elements to 5.
+
+M1 += 5;                // In-place addition, subtraction, multiplication
+M1 -= 5;                // and division by scalar.
+M1 *= 5;
+M1 /= 5;
+
+M1 += M2                // In-place element-wize addition, subtraction,
+M1 -= M2                // multiplication and division with vector v2.
+M1 *= M2
+M1 /= M2
+
+Matrix M2 = M + 5;      // Addition, subtraction, multiplication and
+Matrix M2 = M - 5;      // division with scalar
+Matrix M2 = M * 5;
+Matrix M2 = M / 5;
+
+Matrix M3 = M + M2;     // Element-size addition, subtraction, multiplication
+Matrix M3 = M - M2;     // and division with vector v2.
+Matrix M3 = M * M2;
+Matrix M3 = M / M2;
+
+Matrix M = Dot(M1, M2)              // Matrix multiplication.
+
+Matrix M = Dot(M1, M2, true)        // Matrix multiplication. M1 is transposed.
+
+Matrix M = Dot(M1, M2, false, true) // Matrix multiplication. M2 is transposed.
+
+Matrix M = Dot(M1, M2, true, true)  // Matrix multiplication. M1 & M2 are transposed.
+
+Vector v = Dot(M, v)                // Matrix-Vector multiplication
+
+Vector v = Dot(M, v, true)          //Matrix-Vector multiplication, M is transposed.
+~~~

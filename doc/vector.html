@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title>Vector Class</title>
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-category">PML</div>
+<div class="menu-item"><a href="index.html">home</a></div>
+<div class="menu-item"><a href="vector.html" class="current">vector</a></div>
+<div class="menu-item"><a href="matrix.html">matrix</a></div>
+<div class="menu-item"><a href="random.html">random</a></div>
+<div class="menu-item"><a href="special.html">special</a></div>
+<div class="menu-item"><a href="time.html">time</a></div>
+<div class="menu-item"><a href="utils.html">utils</a></div>
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>Vector Class</h1>
+</div>
+<div class="codeblock">
+<div class="blocktitle">Vector Construction</div>
+<div class="blockcontent"><pre>
+Vector v;                  // Empty vector.
+
+Vector v({1,3,5,7,9});     // Vector of length 5, with initial
+                           // values 1,3,5,7,9
+
+Vector v(K);               // Vector of length K, initialed by zeros.
+
+Vector v(K, buffer);       // Vector of length K, initialized from
+                           // buffer pointed by double pointer buffer.
+
+Vector v(Range(0, 10, 2)   // Vector of even numbers from 0 to 8.
+
+Vector v(v2);              // Copy constructors
+Vector v = v2;
+</pre></div></div>
+<div class="codeblock">
+<div class="blocktitle">Special Vectors</div>
+<div class="blockcontent"><pre>
+Vector v = Vector::Ones(K);   // Vector of length K, all initialized to one.
+
+Vector v = Vector::Zeros(K);  // Vector of length K, all initialized to zero
+</pre></div></div>
+<div class="codeblock">
+<div class="blocktitle">Size Operations</div>
+<div class="blockcontent"><pre>
+size_t s = v.size();    // returns number. elements of v.
+
+bool b = v.empty();     // returns true if v has no elements.
+
+v.resize(new_size);    // Resizes the vector v.
+                       // If new size is smaller than current size,
+                       // stored data is cropped. Otherwise, some garbage
+                       // values are appended at the end.
+</pre></div></div>
+<div class="codeblock">
+<div class="blocktitle">Value Access</div>
+<div class="blockcontent"><pre>
+double d = v(i)   // get the i^th element
+double d = v[i]   // get the i^th element
+
+v(i) = 7;        // set the i^th element
+v[i] = 7;        // set the i^th element
+
+double d = v.first();   // set &amp; get first element
+v.first() = 6;
+
+double d = v.first();   // set &amp; get last element
+v.last() = 6;
+
+double d = 5;          // append value to the end
+v.push_back(d);
+v.append(d);
+
+v.append(v2);          // append elements from v2 to the end of v
+
+v.pop_back(d);         // remove last element
+
+double *buffer = v.data();        // get pointer to the underlying data storage
+
+const double *buffer = v.data();  // get constant pointer to the underlying
+                                  // data storage
+</pre></div></div>
+<div class="codeblock">
+<div class="blocktitle">Algebra</div>
+<div class="blockcontent"><pre>
+v = 5;    // sets all elements to given scalar
+
+v += 5;   // Addition, subtraction, multiplication and
+v -= 5;   // division by a double scalar (in-place)
+v *= 5;
+v /= 5;
+
+v += v2  // Element-wise addition, subtraction, multiplication
+v -= v2  // and division of vectors. (in place)
+v *= v2
+v /= v2
+
+Vector w = v + 5;  // Addition, subtraction, multiplication and
+Vector w = v - 5;  // division by scalar.
+Vector w = v * 5;
+Vector w = v / 5;
+
+Vector w = v + v2;   // Element-wise addition, subtraction,
+Vector w = v - v2;   // multiplication and division.
+Vector w = v * v2;
+Vector w = v / v2;
+
+double d = Dot(v1,v2);  // Dot product of two vectors.
+</pre></div></div>
+<div class="codeblock">
+<div class="blocktitle">Comparisons</div>
+<div class="blockcontent"><pre>
+
+
+bool b =  v.equals(v2);     // true if v &amp; v2 have equal lengths, and
+                            // v[i] == v2[i] for each i
+
+Vector v2 = v == d;         // Compares vector v with double d.
+
+Vector v2 = v &gt; d;          // Returns binary vector v2.
+
+Vector v2 = v &lt; d;          // v2[i] == 1 only if "v[i] COND d" is true.
+
+Vector v2 = v == v3;        // Compares two vectors element-wise
+
+Vector v2 = v &lt; v3;
+
+Vector v2 = v &gt; v3;
+
+bool b = all(v);            // True if binary vector v is all 1s.
+
+bool b = any(v);            // True if binary vector v has at least one 1.
+
+Vector v2 = find(v);        // Returns indices of the binary vector v, that are 1.
+</pre></div></div>
+<div class="codeblock">
+<div class="blocktitle">Save and Load</div>
+<div class="blockcontent"><pre>
+std::cout &lt;&lt; v;                       // Prints vector to stream cout.
+
+v.saveTxt(filename)                   // Saves vector to text file with precision of 6.
+
+Vector v2 = Vector::loadTxt(filename) // Creates a new vector from file.
+</pre></div></div>
+<div class="codeblock">
+<div class="blocktitle">Utilities</div>
+<div class="blockcontent"><pre>
+double d = min(v);              // Minimum element.
+double d = max(v);              // Maximum element.
+double d = sum(v);              // Sum of elements.
+
+double d = mean(v);             // Mean of elements.
+double d = var(v);              // Variance of elements.
+double d = stdev(v);            // Standard deviation of elements.
+
+Vector v2 = abs(v);             // Absolute value of elements.
+Vector v2 = round(v);           // Round to nearest integer.
+Vector v2 = pow(v, p);          // p^th power of each element.
+
+Vector v2 = log(v);             // Logarithm.
+Vector v2 = exp(v);             // Exponentiation.
+Vector v2 = psi(v);             // DiGamma function.
+Vector v2 = lgamma(v);          // Log Gamma function.
+Vector v2 = normalize(v);       // Normalization.
+Vector v2 = normalizeExp(v);    // Safe normalize(exp(v))
+double d = logSumExp(v);        // Safe log(sum((exp(v))
+double d = kl_div(v,v2);        // Kullback-Leibler Divergence between v and v2.
+
+Vector v2 = slice(v, Range(start, stop, step))  // Creates a new vector from
+                                                // a slice of v.
+</pre></div></div>
+<div id="footer">
+<div id="footer-text">
+Page generated 2017-03-04 14:02:35 +03, by <a href="http://jemdoc.jaboc.net/">jemdoc</a>.
+</div>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>
