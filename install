@@ -8,7 +8,7 @@ echo "\n"
 make test
 echo "\n"
 while true; do
-    read -p "Do you wish to copy pml headers under /usr/local/include (y/n)? " yn
+    read -p "Do you wish to copy pml headers under /usr/local/include/pml (y/n)? " yn
     case $yn in
         [Yy]* ) sudo make install; break;;
         [Nn]* ) exit;;

@@ -42,7 +42,7 @@ namespace pml {
   }
 
   // Create a valid path name from directory and filename.
-  inline std::string make_path(const std::vector<std::string> &parts){
+  inline std::string path_join(const std::vector<std::string> &parts){
     if(parts.empty()){
       return std::string();
     }
@@ -67,7 +67,7 @@ namespace pml {
       struct dirent *dp;
       while ((dp = readdir(dir)) != NULL) {
         if (fullpath) {
-          files.push_back(make_path({dirname, dp->d_name}));
+          files.push_back(path_join({dirname, dp->d_name}));
         } else {
           files.push_back(dp->d_name);
         }
