@@ -63,6 +63,41 @@ void test_matrix(){
   std::cout << "OK\n";
 }
 
+void test_rvalues(){
+
+  std::cout << "test_rvalues...\n";
+
+  Matrix m(3,4, {0,1,2,3,4,5,6,7,8,9,10,11});
+  const double* data_original = m.data();
+
+  // Test Move constructor
+  Matrix m2(std::move(m));
+  assert(m.nrows() == 0);
+  assert(m.ncols() == 0);
+  assert(m.size() == 0);
+  assert(m.data() != data_original);
+
+  assert(m2.nrows() == 3);
+  assert(m2.ncols() == 4);
+  assert(m2.size() == 12);
+  assert(m2.data() == data_original);
+
+  // Test Move assignment
+  Matrix m3;
+  m3 = std::move(m2);
+  assert(m2.nrows() == 0);
+  assert(m2.ncols() == 0);
+  assert(m2.size() == 0);
+  assert(m2.data() != data_original);
+
+  assert(m3.nrows() == 3);
+  assert(m3.ncols() == 4);
+  assert(m3.size() == 12);
+  assert(m3.data() == data_original);
+
+  std::cout << "OK.\n";
+}
+
 void test_load_save(){
   std::cout << "test_load_save...\n";
 
@@ -230,6 +265,7 @@ void test_matrix_append(){
 
 int main(){
   test_matrix();
+  test_rvalues();
   test_matrix_functions();
   test_matrix_algebra();
   test_matrix_append();

@@ -64,6 +64,31 @@ namespace pml {
         }
       }
 
+    public:
+      // Copy Constructor
+      Vector(const Vector &that){
+        data_ = that.data_;
+      }
+
+      // Move Constructor
+      Vector(Vector &&that) noexcept {
+        data_ = std::move(that.data_);
+      }
+
+      // Copy Assignment
+      Vector& operator=(const Vector &that){
+        data_ = that.data_;
+        return *this;
+      }
+
+      // Move Assignment
+      Vector& operator=(Vector &&that) noexcept {
+        data_ = std::move(that.data_);
+        return *this;
+      }
+
+    public:
+
       // Vector of zeros of given length.
       static Vector zeros(size_t length) {
         return Vector(length, 0.0);

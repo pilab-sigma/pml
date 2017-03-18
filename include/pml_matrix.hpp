@@ -52,6 +52,37 @@ namespace pml {
           Matrix(shape.first, shape.second, values) { }
 
     public:
+      // Copy Constructor
+      Matrix(const Matrix &that)
+          : nrows_(that.nrows_), ncols_(that.ncols_), data_(that.data_) {}
+
+      // Move Constructor
+      Matrix(Matrix &&that) noexcept
+          : nrows_(that.nrows_), ncols_(that.ncols_),
+            data_(std::move(that.data_)) {
+        that.nrows_ = 0;
+        that.ncols_ = 0;
+      }
+
+      // Copy Assignment
+      Matrix& operator=(const Matrix &that){
+        data_ = that.data_;
+        nrows_ = that.nrows_;
+        ncols_ = that.ncols_;
+        return *this;
+      }
+
+      // Move Assignment
+      Matrix& operator=(Matrix &&that) noexcept {
+        data_ = std::move(that.data_);
+        nrows_ = that.nrows_;
+        ncols_ = that.ncols_;
+        that.nrows_ = 0;
+        that.ncols_ = 0;
+        return *this;
+      }
+
+    public:
       // Zeros Matrix
       static Matrix zeros(size_t num_rows, size_t num_cols) {
         return Matrix(num_rows, num_cols, 0.0);

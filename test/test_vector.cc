@@ -55,6 +55,30 @@ void test_vector(){
   std::cout << "OK.\n";
 }
 
+void test_rvalues(){
+
+  std::cout << "test_rvalues...\n";
+
+  Vector v({0,1,2,3,4,5,6,7});
+  const double* data_original = v.data();
+
+  // Test Move constructor
+  Vector v2(std::move(v));
+  assert(v.size() == 0);
+  assert(v.data() != data_original);
+  assert(v2.size() == 8);
+  assert(v2.data() == data_original);
+
+  // Test Move assignment
+  Vector v3;
+  v3 = std::move(v2);
+  assert(v2.size() == 0);
+  assert(v2.data() != data_original);
+  assert(v3.size() == 8);
+  assert(v3.data() == data_original);
+
+  std::cout << "OK.\n";
+}
 
 void test_load_save(){
   std::cout << "test_load_save...\n";
@@ -199,6 +223,7 @@ void test_vector_comparison() {
 
 int main(){
   test_vector();
+  test_rvalues();
   test_vector_functions();
   test_vector_algebra();
   test_vector_comparison();
