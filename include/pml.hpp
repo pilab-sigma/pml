@@ -2,6 +2,7 @@
 #define PML_H_
 
 #include "pml_vector.hpp"
+#include "pml_histogram.hpp"
 #include "pml_matrix.hpp"
 #include "pml_random.hpp"
 #include "pml_special.hpp"

@@ -229,5 +229,4 @@ int main(){
   test_vector_comparison();
   test_load_save();
   return 0;
-
 }
