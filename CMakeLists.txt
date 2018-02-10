@@ -14,6 +14,7 @@ add_test(test_vector ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test_vector)
 add_test(test_matrix ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test_matrix)
 add_test(test_random ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test_random)
 add_test(test_special ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test_special)
+add_test(test_histogram ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test_histogram)
 
 
 # Installation

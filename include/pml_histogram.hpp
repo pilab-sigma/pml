@@ -8,6 +8,8 @@ namespace pml{
 class Histogram {
 
   public:
+    Histogram() {}
+
     Histogram(const Vector &range_) : range(range_) {
       reset();
     }
@@ -57,7 +59,7 @@ class Histogram {
     }
 
   private:
-    const Vector range;
+    Vector range;
     Vector bins;
 };
 

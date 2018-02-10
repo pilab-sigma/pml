@@ -576,27 +576,27 @@ namespace pml {
       std::vector<double> data_;
   };
 
-  Vector cat(const Vector &v1, const Vector &v2){
+  inline Vector cat(const Vector &v1, const Vector &v2){
     Vector result(v1);
     result.append(v2);
     return result;
   }
 
-  Vector cat(const std::vector<Vector> &v_list){
+  inline Vector cat(const std::vector<Vector> &v_list){
     Vector result;
     for(const Vector &v : v_list)
       result.append(v);
     return result;
   }
 
-  Vector reverse(const Vector &v){
+  inline  Vector reverse(const Vector &v){
     Vector result = v;
     std::reverse(result.begin(), result.end());
     return result;
   }
 
   // Returns the set of indices i of v, such that v[i] == 1.
-  Vector find(const Vector &v){
+  inline Vector find(const Vector &v){
     Vector result;
     for(size_t i=0; i < v.size(); ++i){
       if(v[i] == 1)
@@ -606,7 +606,7 @@ namespace pml {
   }
 
   // is_nan
-  Vector is_nan(const Vector &v){
+  inline Vector is_nan(const Vector &v){
     Vector result = Vector::zeros(v.size());
     for(size_t i=0; i < v.size(); ++i){
       if(std::isnan(v[i]))
@@ -616,7 +616,7 @@ namespace pml {
   }
 
   // is_inf
-  Vector is_inf(const Vector &v){
+  inline Vector is_inf(const Vector &v){
     Vector result = Vector::zeros(v.size());
     for(size_t i=0; i < v.size(); ++i){
       if(std::isinf(v[i]))
